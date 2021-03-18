@@ -7,7 +7,7 @@ import io.swagger.v3.oas.annotations.info.*;
 @OpenAPIDefinition(
         info = @Info(
                 title = "recognizers-service",
-                version = "0.1"
+                version = "0.2"
         )
 )
 public class Application {

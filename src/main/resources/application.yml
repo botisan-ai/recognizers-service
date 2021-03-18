@@ -1,8 +1,19 @@
 micronaut:
+  router:
+    static-resources:
+      swagger:
+        paths: classpath:META-INF/swagger
+        mapping: /swagger/**
+      redoc:
+        paths: classpath:META-INF/swagger/views/redoc
+        mapping: /redoc/**
+      swagger-ui:
+        paths: classpath:META-INF/swagger/views/swagger-ui
+        mapping: /swagger-ui/**
   application:
     name: recognizersService
   server:
     host: 0.0.0.0
-    port: 6000
+    port: 7000
     cors:
       enabled: true

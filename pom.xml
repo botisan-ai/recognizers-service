@@ -133,9 +133,11 @@
                             <version>${micronaut.openapi.version}</version>
                         </path>
                     </annotationProcessorPaths>
+                    <fork>true</fork>
                     <compilerArgs>
                         <arg>-Amicronaut.processing.group=io.xtech.recognizers.service</arg>
                         <arg>-Amicronaut.processing.module=recognizers-service</arg>
+                        <arg>-J-Dmicronaut.openapi.views.spec=redoc.enabled=true,swagger-ui.enabled=true,swagger-ui.theme=flattop</arg>
                     </compilerArgs>
                 </configuration>
             </plugin>

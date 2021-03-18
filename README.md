@@ -5,10 +5,23 @@ This is Microsoft's Recognizers-Text [Java library](https://github.com/microsoft
 Once it stands up, the port 6000 will be activated.
 
 ```shell
-docker run -p 6000:6000 xanthoustech/recognizers-service
+docker run -p 7000:7000 xanthoustech/recognizers-service
 ```
 
-Currently, it supports number, number range, currency and currency range. More will come.
+There is a swagger UI for API specifications at http://localhost:7000/swagger-ui or https://localhost:7000/redoc
+
+## Features
+
+Currently, it supports
+
+- Number
+- Currency
+- Dimensions
+- Number Range
+- Currency Range
+- Dimension Range
+- Bedroom/Bathroom (as an example of override)
+- Bedroom/Bathroom Range (as an example of override)
 
 # About Micronaut
 
