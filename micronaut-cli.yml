@@ -1,0 +1,6 @@
+applicationType: default
+defaultPackage: io.xtech.recognizers.service
+testFramework: junit
+sourceLanguage: java
+buildTool: maven
+features: [ annotation-api, app-name, http-client, java, java-application, junit, maven, netty-server, openapi, readme, shade, slf4j-simple, yaml ]
