@@ -1,0 +1,1 @@
+docker build --build-arg github_token=$GITHUB_TOKEN -f $DOCKERFILE_PATH -t $IMAGE_NAME .

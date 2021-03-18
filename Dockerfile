@@ -1,5 +1,11 @@
 FROM maven:3.6.3-openjdk-11 AS build
-COPY repo-settings.xml /root/.m2/settings.xml
+
+ENV M2_SETTINGS_PATH "/root/.m2/settings.xml"
+ARG github_token
+ENV GITHUB_TOKEN ${github_token}
+
+COPY write_repo_settings.sh /tmp/write_repo_settings.sh
+RUN /tmp/write_repo_settings.sh
 COPY src /usr/src/app/src
 COPY pom.xml /usr/src/app
 RUN mvn -f /usr/src/app/pom.xml clean package
