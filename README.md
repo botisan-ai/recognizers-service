@@ -1,6 +1,6 @@
 # recognizers-service
 
-This is Microsoft's Recognizers-Text [Java library](https://github.com/microsoft/Recognizers-Text/Java) packaged into a REST service. It is useful to extract information, such as numbers and time, from a text sentence. Being in a REST service makes it easy to consume in a cloud native environment, or chatbot development.
+This is Microsoft's Recognizers-Text [Java library](https://github.com/microsoft/Recognizers-Text/tree/master/Java) packaged into a REST service. It is useful to extract information, such as numbers and time, from a text sentence. Being in a REST service makes it easy to consume in a cloud native environment, or chatbot development.
 
 Once it stands up, the port 6000 will be activated.
 

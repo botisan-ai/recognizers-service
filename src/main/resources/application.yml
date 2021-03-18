@@ -2,6 +2,7 @@ micronaut:
   application:
     name: recognizersService
   server:
+    host: 0.0.0.0
     port: 6000
     cors:
       enabled: true
