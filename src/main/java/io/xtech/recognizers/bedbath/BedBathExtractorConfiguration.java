@@ -39,7 +39,7 @@ public class BedBathExtractorConfiguration extends EnglishNumberWithUnitExtracto
     }
 
     public static Map<String, String> BedBathSuffixList = new ImmutableMap.Builder<String, String>()
-            .put("Bedroom", "-bedroom|bedroom|bedrooms|-bdroom|bdroom|bdrooms|bed room|bed rooms|bd room|bd rooms|-bed|bed|beds|-bd|bd|bds")
+            .put("Bedroom", "-bedroom|bedroom|bedrooms|-bdroom|bdroom|bdrooms|bed room|bed rooms|bd room|bd rooms|-bed|bed|beds|-bd|bd|bds|-br|br|brs")
             .put("Bathroom", "-bathroom|bathroom|bathrooms|bath room|bath rooms|restroom|restrooms|shower|showers|shower room|shower rooms|-bath|bath|baths")
             .build();
 }
