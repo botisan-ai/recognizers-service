@@ -3,6 +3,7 @@ package io.xtech.recognizers.range;
 import com.google.common.collect.Lists;
 import com.microsoft.recognizers.text.ModelResult;
 import com.microsoft.recognizers.text.number.NumberRecognizer;
+import io.xtech.recognizers.service.models.RecognizeRangeWithUnitsInput;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -12,11 +13,14 @@ import java.util.TreeMap;
 public class RangeWithUnitsRecognizer {
     public static List<ModelResult> recognizeRangeWithUnits(
             String rangeModelType,
-            String text,
-            String culture,
             List<ModelResult> numberWithUnitsResult,
-            boolean showNumbers
+            RecognizeRangeWithUnitsInput recognizeRangeWithUnitsInput
     ) {
+        String originalText = recognizeRangeWithUnitsInput.getText();
+        String text = originalText;
+        String culture = recognizeRangeWithUnitsInput.getCulture();
+        boolean showNumbers = recognizeRangeWithUnitsInput.isShowNumbers();
+
         if (numberWithUnitsResult == null || numberWithUnitsResult.size() == 0) {
             // return empty list if no currency found
             return Lists.newArrayList();
@@ -48,16 +52,13 @@ public class RangeWithUnitsRecognizer {
 
         List<ModelResult> convertedRangeResult = new ArrayList<>();
 
-        // re-use offset
-        offset = 0;
         for (ModelResult rangeResult : rangeModelResult) {
             // internal offset to update the individual rangeResult
             int internalOffset = 0;
+            int mergeCount = 0;
             // re-use text
             String newText = rangeResult.text;
             List<String> units = new ArrayList<>();
-
-            int newStart = offset + rangeResult.start;
 
             for (ModelResult numberResult : convertedNumberResult) {
                 if (numberResult.start < rangeResult.start || numberResult.end > rangeResult.end) {
@@ -70,10 +71,17 @@ public class RangeWithUnitsRecognizer {
                 newText = newText.substring(0, firstEnd) + replacement + ((lastStart < newText.length()) ? newText.substring(lastStart) : "");
                 internalOffset += replacement.length() - numberResult.text.length();
                 units.add(numberResult.resolution.get("unit").toString());
+                mergeCount += 1;
             }
 
-            offset += internalOffset;
-            int newEnd = offset + rangeResult.end;
+            if (mergeCount <= 0) {
+                continue;
+            }
+
+            // calculate the start and end index
+            int newStart = originalText.indexOf(newText);
+            int newEnd = newStart + newText.length() - 1;
+
             SortedMap<String, Object> newResolution = new TreeMap<>(rangeResult.resolution);
             newResolution.put("unit", units);
             if (showNumbers) {
