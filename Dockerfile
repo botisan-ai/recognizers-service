@@ -14,7 +14,7 @@ RUN mvn -f /usr/src/app/pom.xml clean package
 FROM openjdk:11
 
 ENV APP_NAME=recognizers-service
-ENV APP_VERSION=0.2
+ENV APP_VERSION=0.3
 EXPOSE 7000
 
 COPY --from=build /usr/src/app/target/$APP_NAME-$APP_VERSION.jar /opt/app/$APP_NAME-$APP_VERSION.jar
