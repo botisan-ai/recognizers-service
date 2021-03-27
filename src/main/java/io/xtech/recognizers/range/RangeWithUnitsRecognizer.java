@@ -31,7 +31,11 @@ public class RangeWithUnitsRecognizer {
 
         // replace the currency occurrences to numbers
         for (ModelResult result : numberWithUnitsResult) {
-            String replacement = result.resolution.get("value").toString();
+            Object value = result.resolution.get("value");
+            if (value == null) {
+                continue;
+            }
+            String replacement = value.toString();
             int newStart = offset + result.start;
 
             String newText = text.substring(0, offset + result.start) + replacement + ((offset + result.end + 1 < text.length()) ? text.substring(offset + result.end + 1) : "");
