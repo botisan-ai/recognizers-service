@@ -17,7 +17,7 @@ COPY ./pom.xml /usr/src/app
 
 WORKDIR /usr/src/app
 
-RUN ./mvnw lombok:delombok package -Dpackaging=native-image
+RUN ./mvnw package -Dpackaging=native-image
 
 
 FROM frolvlad/alpine-glibc:alpine-3.12
