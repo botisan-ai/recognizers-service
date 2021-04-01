@@ -11,16 +11,4 @@ import java.util.List;
 @Data
 public class RecognizeNumberWithUnitInput extends RecognizeInput {
     private List<String> units;
-
-//    public RecognizeNumberWithUnitInput() {
-//        super();
-//    }
-//
-//    public List<String> getUnits() {
-//        return units;
-//    }
-//
-//    public void setUnits(List<String> units) {
-//        this.units = units;
-//    }
 }

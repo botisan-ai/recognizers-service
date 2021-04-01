@@ -9,16 +9,4 @@ import lombok.EqualsAndHashCode;
 @Data
 public class RecognizeRangeWithUnitsInput extends RecognizeNumberWithUnitInput {
     private boolean showNumbers;
-
-//    public RecognizeRangeWithUnitsInput() {
-//        super();
-//    }
-//
-//    public boolean isShowNumbers() {
-//        return showNumbers;
-//    }
-//
-//    public void setShowNumbers(boolean showNumbers) {
-//        this.showNumbers = showNumbers;
-//    }
 }

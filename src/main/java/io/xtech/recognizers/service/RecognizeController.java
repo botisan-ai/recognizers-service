@@ -7,7 +7,6 @@ import io.micronaut.http.MediaType;
 import io.micronaut.http.annotation.Body;
 import io.micronaut.http.annotation.Controller;
 import io.micronaut.http.annotation.Post;
-import io.xtech.recognizers.bedbath.BedBathRecognizer;
 import io.xtech.recognizers.range.RangeWithUnitsRecognizer;
 import io.xtech.recognizers.service.models.RecognizeCombinedInput;
 import io.xtech.recognizers.service.models.RecognizeRangeWithUnitsInput;
@@ -29,12 +28,10 @@ public class RecognizeController {
         List<ModelResult> numberResults = new ArrayList<>();
         List<ModelResult> currencyResults = new ArrayList<>();
         List<ModelResult> dimensionResults = new ArrayList<>();
-        List<ModelResult> bedBathResults = new ArrayList<>();
 
         List<ModelResult> numberRangeResults = new ArrayList<>();
         List<ModelResult> currencyRangeResults = new ArrayList<>();
         List<ModelResult> dimensionRangeResults = new ArrayList<>();
-        List<ModelResult> bedBathRangeResults = new ArrayList<>();
 
 
         if (entities == null || entities.contains("number")) {
@@ -47,10 +44,6 @@ public class RecognizeController {
 
         if (entities == null || entities.contains("dimension") || entities.contains("dimension-range")) {
             dimensionResults.addAll(recognizeDimension(recognizeCombinedInput));
-        }
-
-        if (entities == null || entities.contains("bedbath") || entities.contains("bedbath-range")) {
-            bedBathResults.addAll(recognizeBedBath(recognizeCombinedInput));
         }
 
         if (entities == null || entities.contains("numberrange")) {
@@ -73,23 +66,13 @@ public class RecognizeController {
             ));
         }
 
-        if (entities == null || entities.contains("bedbath-range")) {
-            bedBathRangeResults.addAll(RangeWithUnitsRecognizer.recognizeRangeWithUnits(
-                    "bedbath-range",
-                    bedBathResults,
-                    recognizeCombinedInput
-            ));
-        }
-
         List<ModelResult> finalResults = Stream
                 .of(
                         currencyRangeResults,
                         dimensionRangeResults,
-                        bedBathRangeResults,
                         numberRangeResults,
                         currencyResults,
                         dimensionResults,
-                        bedBathResults,
                         numberResults
                 )
                 .flatMap(Collection::stream)
@@ -180,18 +163,6 @@ public class RecognizeController {
         );
     }
 
-    @Post(value = "/bedbath", produces = MediaType.APPLICATION_JSON)
-    public List<ModelResult> recognizeBedBath(@Body RecognizeNumberWithUnitInput recognizeBedBathInput) {
-        String text = recognizeBedBathInput.getText();
-        String culture = recognizeBedBathInput.getCulture();
-        List<String> units = recognizeBedBathInput.getUnits();
-
-        return filterModelResultsByUnits(
-                BedBathRecognizer.recognizeBedBath(text, culture),
-                units
-        );
-    }
-
     @Post(value = "/currency-range", produces = MediaType.APPLICATION_JSON)
     public List<ModelResult> recognizeCurrencyRange(@Body RecognizeRangeWithUnitsInput recognizeRangeWithUnitsInput) {
         List<ModelResult> modelResults = recognizeCurrency(recognizeRangeWithUnitsInput);
@@ -207,16 +178,6 @@ public class RecognizeController {
         List<ModelResult> modelResults = recognizeDimension(recognizeRangeWithUnitsInput);
         return RangeWithUnitsRecognizer.recognizeRangeWithUnits(
                 "dimension-range",
-                modelResults,
-                recognizeRangeWithUnitsInput
-        );
-    }
-
-    @Post(value = "/bedbath-range", produces = MediaType.APPLICATION_JSON)
-    public List<ModelResult> recognizeBedBathRange(@Body RecognizeRangeWithUnitsInput recognizeRangeWithUnitsInput) {
-        List<ModelResult> modelResults = recognizeBedBath(recognizeRangeWithUnitsInput);
-        return RangeWithUnitsRecognizer.recognizeRangeWithUnits(
-                "bedbath-range",
                 modelResults,
                 recognizeRangeWithUnitsInput
         );

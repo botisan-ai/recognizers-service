@@ -1,4 +1,3 @@
-#FROM maven:3.6.3-openjdk-11 AS builder
 FROM ghcr.io/graalvm/graalvm-ce:java11-21.0.0.2 AS builder
 
 RUN gu install native-image
