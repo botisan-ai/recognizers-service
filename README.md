@@ -2,7 +2,7 @@
 
 This is Microsoft's Recognizers-Text [Java library](https://github.com/microsoft/Recognizers-Text/tree/master/Java) packaged into a REST service. It is useful to extract information, such as numbers and time, from a text sentence. Being in a REST service makes it easy to consume in a cloud native environment, or chatbot development.
 
-Once it stands up, the port 6000 will be activated.
+Once it stands up, the port 7000 will be activated.
 
 ```shell
 docker run -p 7000:7000 xanthoustech/recognizers-service
@@ -20,8 +20,6 @@ Currently, it supports
 - Number Range
 - Currency Range
 - Dimension Range
-- Bedroom/Bathroom (as an example of override)
-- Bedroom/Bathroom Range (as an example of override)
 
 # About Micronaut
 

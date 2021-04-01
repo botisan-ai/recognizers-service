@@ -13,7 +13,6 @@ import io.xtech.recognizers.service.models.RecognizeCombinedInput;
 import io.xtech.recognizers.service.models.RecognizeRangeWithUnitsInput;
 import io.xtech.recognizers.service.models.RecognizeInput;
 import io.xtech.recognizers.service.models.RecognizeNumberWithUnitInput;
-import lombok.extern.slf4j.Slf4j;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -22,7 +21,6 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 @Controller("/recognize")
-@Slf4j
 public class RecognizeController {
     @Post(value = "/combined", produces = MediaType.APPLICATION_JSON)
     public List<ModelResult> recognizeCombined(@Body RecognizeCombinedInput recognizeCombinedInput) {
