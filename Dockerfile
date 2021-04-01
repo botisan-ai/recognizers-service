@@ -11,8 +11,8 @@ RUN mkdir -p /root/.m2
 RUN /tmp/write_repo_settings.sh
 COPY ./src /usr/src/app/src
 COPY ./.mvn /usr/src/app/.mvn
-COPY ./mvnw* /usr/src/app
-COPY ./pom.xml /usr/src/app
+COPY ./mvnw* /usr/src/app/
+COPY ./pom.xml /usr/src/app/pom.xml
 
 WORKDIR /usr/src/app
 
