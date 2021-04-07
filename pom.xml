@@ -4,7 +4,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>io.xtech.recognizers.service</groupId>
     <artifactId>recognizers-service</artifactId>
-    <version>0.3.3</version>
+    <version>0.4.0</version>
     <packaging>${packaging}</packaging>
 
     <parent>
@@ -156,6 +156,19 @@
                         </tags>
                     </to>
                 </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.projectlombok</groupId>
+                <artifactId>lombok-maven-plugin</artifactId>
+                <version>1.18.18.0</version>
+                <executions>
+                    <execution>
+                        <phase>generate-sources</phase>
+                        <goals>
+                            <goal>delombok</goal>
+                        </goals>
+                    </execution>
+                </executions>
             </plugin>
         </plugins>
     </build>

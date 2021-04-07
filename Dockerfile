@@ -1,4 +1,6 @@
-FROM maven:3.6.3-openjdk-11 AS build
+FROM ghcr.io/graalvm/graalvm-ce:java11-21.0.0.2 AS builder
+
+RUN gu install native-image
 
 ENV M2_SETTINGS_PATH "/root/.m2/settings.xml"
 ARG github_token
@@ -7,16 +9,22 @@ ENV GITHUB_TOKEN ${github_token}
 COPY write_repo_settings.sh /tmp/write_repo_settings.sh
 RUN mkdir -p /root/.m2
 RUN /tmp/write_repo_settings.sh
-COPY src /usr/src/app/src
-COPY pom.xml /usr/src/app
-RUN mvn -f /usr/src/app/pom.xml clean package
+COPY ./src /usr/src/app/src
+COPY ./.mvn /usr/src/app/.mvn
+COPY ./mvnw* /usr/src/app/
+COPY ./pom.xml /usr/src/app/pom.xml
 
-FROM openjdk:11
+WORKDIR /usr/src/app
 
-ENV APP_NAME=recognizers-service
-ENV APP_VERSION=0.3.3
+RUN ./mvnw package -Dpackaging=native-image
+
+
+FROM frolvlad/alpine-glibc:alpine-3.12
+RUN apk update && apk add libstdc++
+
 EXPOSE 7000
+ENV APP_NAME=recognizers-service
 
-COPY --from=build /usr/src/app/target/$APP_NAME-$APP_VERSION.jar /opt/app/$APP_NAME-$APP_VERSION.jar
+COPY --from=builder /usr/src/app/target/${APP_NAME} /app/application
 
-ENTRYPOINT java -jar /opt/app/$APP_NAME-$APP_VERSION.jar
+ENTRYPOINT ["/app/application"]
